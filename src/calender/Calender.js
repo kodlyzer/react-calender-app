@@ -1,98 +1,101 @@
 import React from 'react';
 import './Calender.css'
 
+const months = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];
+
 function Calender() {
-	const date = new Date();
-	date.setDate(1);
+  const [dateObj, setDateObj] = React.useState(new Date());
 
-	const lastDay = new Date(
-		date.getFullYear(),
-		date.getMonth() + 1,
-		0
-	).getDate();
+  const moveMonth = (isPrev) => {
+    if(isPrev) {
+      dateObj.setMonth(dateObj.getMonth() - 1);
+    } else {
+      dateObj.setMonth(dateObj.getMonth() + 1);
+    }
+    setDateObj(new Date(dateObj));
+  }
 
-	const prevLastDay = new Date(
-		date.getFullYear(),
-		date.getMonth(),
-		0
-	).getDate();
-
-	const firstDayIndex = date.getDay();
-
-	const lastDayIndex = new Date(
-		date.getFullYear(),
-		date.getMonth() + 1,
-		0
-	).getDay();
-
-	const nextDays = 7 - lastDayIndex - 1;
-
-	const months = [
-		"January",
-		"February",
-		"March",
-		"April",
-		"May",
-		"June",
-		"July",
-		"August",
-		"September",
-		"October",
-		"November",
-		"December",
-	];
-
-	const getPrevMonthDays = () => {
-		let days = [];
-		for (let x = firstDayIndex; x > 0; x--) {
-			days.push(<div class="prev-date">{prevLastDay - x + 1}</div>);
+  const getPrevMonthDays = () => {
+    let days = [];
+    const prevLastDay = new Date(
+      dateObj.getFullYear(),
+      dateObj.getMonth(),
+      0
+    ).getDate();
+		for (let x = dateObj.getDay() +1 ; x > 0; x--) {
+			days.push(<div key={x + Math.random} className="prev-date">{prevLastDay - x + 1}</div>);
 		}
-		return days;
+    console.log(days);
+    return days;
 	}
 
 	const getCurrentMonthDays = () => {
-		let days = []
-		for (let i = 1; i <= lastDay; i++) {
+    let days = [];
+    const lastDay = new Date(
+      dateObj.getFullYear(),
+      dateObj.getMonth() + 1,
+      0
+    ).getDate();
+    
+    for (let i = 1; i <= lastDay; i++) {
 			if (
 				i === new Date().getDate() &&
-				date.getMonth() === new Date().getMonth()
+				dateObj.getMonth() === new Date().getMonth()
 			) {
-				days.push(<div class="today">{i}</div>);
+				days.push(<div key={i + Math.random} className="today">{i}</div>);
 			} else {
-				days.push(<div>{i}</div>);
+				days.push(<div key={i + Math.random}>{i}</div>);
 			}
 		}
 		return days;
 	}
 
 	const getNextMonthDays = () => {
+    const lastDayIndex = new Date(
+      dateObj.getFullYear(),
+      dateObj.getMonth() + 1,
+      0
+    ).getDay();
+    const nextDays = 7 - lastDayIndex;
 		let days = [];
 		for (let j = 1; j <= nextDays; j++) {
-			days.push(<div class="next-date">{j}</div>);
+			days.push(<div key={j + Math.random} className="next-date">{j}</div>);
 		}
 		return days;
-	}
+  }
 
 	return (
-		<div class="calendar">
-			<div class="month">
-				<i class="fas fa-angle-left prev"></i>
-				<div class="date">
-					<h1>{months[date.getMonth()]}</h1>
-					<p>{new Date().toDateString()}</p>
+		<div className="calendar">
+			<div className="month">
+				<i className="fas fa-angle-left prev" onClick={() => moveMonth(true)}></i>
+				<div className="date">
+					<h1>{months[dateObj.getMonth()] + ' ' + dateObj.getFullYear()}</h1>
 				</div>
-				<i class="fas fa-angle-right next"></i>
+				<i className="fas fa-angle-right next" onClick={() => moveMonth(false)}></i>
 			</div>
-			<div class="weekdays">
-				<div>Sun</div>
+			<div className="weekdays">
 				<div>Mon</div>
 				<div>Tue</div>
 				<div>Wed</div>
 				<div>Thu</div>
 				<div>Fri</div>
 				<div>Sat</div>
+        <div>Sun</div>
 			</div>
-			<div class="days">
+			<div className="days">
 				{getPrevMonthDays()}
 				{getCurrentMonthDays()}
 				{getNextMonthDays()}
