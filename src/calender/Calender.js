@@ -1,20 +1,7 @@
 import React from 'react';
-import './Calender.css'
+import './Calender.css';
+import months from './months';
 
-const months = [
-  "January",
-  "February",
-  "March",
-  "April",
-  "May",
-  "June",
-  "July",
-  "August",
-  "September",
-  "October",
-  "November",
-  "December",
-];
 
 function Calender() {
   const [dateObj, setDateObj] = React.useState(new Date());
@@ -35,10 +22,9 @@ function Calender() {
       dateObj.getMonth(),
       0
     ).getDate();
-		for (let x = dateObj.getDay() +1 ; x > 0; x--) {
+		for (let x = dateObj.getDay() ; x > 0; x--) {
 			days.push(<div key={x + Math.random} className="prev-date">{prevLastDay - x + 1}</div>);
 		}
-    console.log(days);
     return days;
 	}
 
@@ -87,13 +73,13 @@ function Calender() {
 				<i className="fas fa-angle-right next" onClick={() => moveMonth(false)}></i>
 			</div>
 			<div className="weekdays">
-				<div>Mon</div>
-				<div>Tue</div>
-				<div>Wed</div>
-				<div>Thu</div>
-				<div>Fri</div>
-				<div>Sat</div>
-        <div>Sun</div>
+				<div>M</div>
+				<div>T</div>
+				<div>W</div>
+				<div>T</div>
+				<div>F</div>
+				<div className="weekends">S</div>
+        <div className="weekends">S</div>
 			</div>
 			<div className="days">
 				{getPrevMonthDays()}
