@@ -2,7 +2,12 @@
   color: #eee;
   width: 45rem;
   height: 20rem;
-  background-color: rgba(0, 255, 106, 0.815);
   border-bottom-left-radius: 2rem;
   border-bottom-right-radius: 2rem;
+  background-color: #098cf7;
+  color:white;
+}
+
+.holiday-reminders {
+  background-color: rgba(0, 255, 106, 0.815);
 }

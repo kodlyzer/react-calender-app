@@ -5,13 +5,13 @@ import months from './months';
 
 function Calender(props) {
   const [dateObj, setDateObj] = React.useState(new Date());
-  const [reminders, setReminders] = React.useState({}); 
+  const {selected, setSelectedDate, addReminder} = props;
 
-  const handleDateSelect = (dateObj, selectedDate, selectedMonth = 'current') => {
+  const handleDateSelect = (selectedDate) => {
     const clickedDayReminders = {
-      ['' + dateObj.getFullYear() + dateObj.getMonth() + selectedDate]: {
+      ['' + selectedDate.getFullYear() + selectedDate.getMonth() + selectedDate.getDate()]: {
         heading: '',
-        date: selectedDate+'/'+dateObj.getMonth()+'/'+dateObj.getFullYear(),
+        date: selectedDate,
         remindersForDay: [{
           title: 'asdf',
           place: 'asdf',
@@ -19,8 +19,8 @@ function Calender(props) {
         }]
       }
     };
-    setReminders({...reminders, ...clickedDayReminders});
-    console.log(reminders);
+    addReminder(clickedDayReminders);
+    setSelectedDate(selectedDate);
   }
 
   const moveMonth = (isPrev) => {
@@ -32,53 +32,87 @@ function Calender(props) {
     setDateObj(new Date(dateObj));
   }
 
-  const getPrevMonthDays = () => {
+	const getDaysInPortal = () => {
     let days = [];
-    const prevLastDay = new Date(
-      dateObj.getFullYear(),
-      dateObj.getMonth(),
-      0
-    ).getDate();
-		for (let x = dateObj.getDay() ; x > 0; x--) {
-			days.push(<div key={x + Math.random} className="prev-date" onClick={() => { handleDateSelect(dateObj, prevLastDay - x + 1, 'prev') }}>{prevLastDay - x + 1}</div>);
-		}
-    return days;
-	}
-
-	const getCurrentMonthDays = () => {
-    let days = [];
-    const lastDay = new Date(
+    const lastDateOfMonth = new Date(
       dateObj.getFullYear(),
       dateObj.getMonth() + 1,
       0
     ).getDate();
+    const date = new Date(dateObj.getFullYear(), dateObj.getMonth(), 1);
+
+    const day = date.getDay() || 7;
+    for(let i = 1; i < day; i++) {
+      days.push(<div className="hidden" key={i}></div>)
+    }
     
-    for (let i = 1; i <= lastDay; i++) {
-			if (
-				i === new Date().getDate() &&
-				dateObj.getMonth() === new Date().getMonth()
-			) {
-				days.push(<div key={i + Math.random} className="today" onClick={() => { handleDateSelect(dateObj, i) }}>{i}</div>);
-			} else {
-				days.push(<div key={i + Math.random} onClick={() => { handleDateSelect(dateObj, i) }}>{i}</div>);
-			}
-		}
+    while(date.getDate() <= lastDateOfMonth && dateObj.getMonth() === date.getMonth()) {
+      const dateValue = date.getDate();
+      const selectedDate = new Date(date.getFullYear(), date.getMonth(), dateValue);
+      const isToday = dateValue === new Date().getDate() && dateObj.getMonth() === new Date().getMonth();
+      const classes = [];
+      if (isToday) { 
+        classes.push('today') 
+      };
+      try {
+        if (
+          selectedDate.getFullYear() === selected.getFullYear()
+          && selectedDate.getMonth() === selected.getMonth()
+          && selectedDate.getDate() === selected.getDate()
+        ) {
+          classes.push('selected');
+        }
+      } catch (e) {}
+      if (selectedDate.getDay() === 0 || selectedDate.getDay() === 6) {
+        classes.push('holiday');
+      }
+      days.push(<div className={classes.join(' ')} key={dateValue + Math.random} onClick={() => { handleDateSelect(selectedDate) }}>{dateValue}</div>);
+      date.setDate(date.getDate() + 1)
+    }
+
+    while(date.getDay()) {
+      const dateValue = date.getDate();
+      const selectedDate = new Date(date.getFullYear(), date.getMonth(), dateValue);
+      const classes = [];
+      classes.push('next-day') 
+      try {
+        if (
+          selectedDate.getFullYear() === selected.getFullYear()
+          && selectedDate.getMonth() === selected.getMonth()
+          && selectedDate.getDate() === selected.getDate()
+        ) {
+          classes.push('selected');
+        }
+      } catch (e) {}
+      if (selectedDate.getDay() === 0 || selectedDate.getDay() === 6) {
+        classes.push('holiday');
+      }
+      days.push(<div className={classes.join(' ')}  key={date.getDate() + Math.random()} onClick={() => { handleDateSelect(selectedDate) }}>{dateValue}</div>)
+      date.setDate(date.getDate() + 1)
+    }
+
+    if(date.getDay() === 0) {
+      const dateValue = date.getDate();
+      const selectedDate = new Date(date.getFullYear(), date.getMonth(), dateValue);
+      const classes = [];
+      classes.push('next-day');
+      try {
+        if (
+          selectedDate.getFullYear() === selected.getFullYear()
+          && selectedDate.getMonth() === selected.getMonth()
+          && selectedDate.getDate() === selected.getDate()
+        ) {
+          classes.push('selected');
+        }
+      } catch (e) {}
+      if (selectedDate.getDay() === 0 || selectedDate.getDay() === 6) {
+        classes.push('holiday');
+      }
+      days.push(<div className={classes.join(' ')} key={date.getDate() + Math.random()} onClick={() => { handleDateSelect(selectedDate) }}>{dateValue}</div>)
+    }
+
 		return days;
 	}
-
-	const getNextMonthDays = () => {
-    const lastDayIndex = new Date(
-      dateObj.getFullYear(),
-      dateObj.getMonth() + 1,
-      0
-    ).getDay();
-    const nextDays = 7 - lastDayIndex;
-		let days = [];
-		for (let j = 1; j <= nextDays; j++) {
-			days.push(<div key={j + Math.random} className="next-date" onClick={() => { handleDateSelect(dateObj, j, 'next') }}>{j}</div>);
-		}
-		return days;
-  }
 
 	return (
 		<div className="calendar">
@@ -99,9 +133,7 @@ function Calender(props) {
         <div className="weekends">S</div>
 			</div>
 			<div className="days">
-				{getPrevMonthDays()}
-				{getCurrentMonthDays()}
-				{getNextMonthDays()}
+				{getDaysInPortal()}
 			</div>
 		</div>
 	);

@@ -1,14 +1,23 @@
 
 import React from 'react';
-import './Scheduler.css'
+import './Scheduler.css';
+import weekdays from '../calender/weekdays'
 
-function Scheduler () {
+function Scheduler ({ reminders }) {
+  console.log(reminders);
+  const classes = ['scheduler-wrapper'];
+  const day = reminders?.date?.getDay();
+  if (day === 0 || day === 6) {
+    classes.push('holiday-reminders');
+  }
   return (
-    <section className="scheduler-wrapper">
+    <section className={classes.join(' ')}>
       <header>
         <div>
-          Today
-          20/03/2016
+          <h2>{weekdays[reminders?.date?.getDay()]}</h2>
+        </div>
+        <div>
+          {reminders?.date?.getDate()}/{reminders?.date?.getMonth()}/{reminders?.date?.getFullYear()}
         </div>
         <button type="button">Add new</button>
       </header>

@@ -1,10 +1,11 @@
 .calendar {
   width: 45rem;
   height: 52rem;
-  background-color: #eee;
+  background-color: white;
   box-shadow: 0 0.5rem 3rem rgba(0, 0, 0, 0.4);
   border-top-left-radius: 2rem;
   border-top-right-radius: 2rem;
+  color: lightgray;
 }
 
 .month {
@@ -44,14 +45,15 @@
 
 .weekdays div {
   font-size: 1.5rem;
-  font-weight: 600;
+  font-weight: bolder;
   letter-spacing: 0.1rem;
   width: calc(44.2rem / 7);
   display: flex;
   justify-content: center;
   align-items: center;
-  text-shadow: 0 0.3rem 0.5rem rgba(0, 0, 0, 0.5);
+  color: gray;
 }
+
 
 .weekdays .weekends {
   color: green;
@@ -66,27 +68,46 @@
 
 .days div {
   font-size: 1.4rem;
+  font-weight: bold;
   margin: 0.3rem;
   width: calc(40.2rem / 7);
   height: 5rem;
   display: flex;
   justify-content: center;
   align-items: center;
-  text-shadow: 0 0.3rem 0.5rem rgba(0, 0, 0, 0.5);
-  transition: background-color 0.2s;
+  color: #00a2ff;
 }
 
 .days div:hover:not(.today) {
-  background-color: #262626;
+  border-radius: 60%;
   border: 0.2rem solid #777;
   cursor: pointer;
 }
 
-.prev-date,
+.days .hidden {
+  visibility: hidden;
+}
+
+.days .holiday {
+  color: #0dc63d;
+}
+
 .next-date {
   opacity: 0.5;
 }
 
 .today {
-  background-color: #167e56;
+  border-radius: 60%;
+  border: 1px solid gray;
+}
+
+.days .selected {
+  border-radius: 60%;
+  background-color: #098cf7;
+  color:white;
+}
+
+.selected.holiday {
+  background-color:#0dc63d;
+  color:white;
 }
