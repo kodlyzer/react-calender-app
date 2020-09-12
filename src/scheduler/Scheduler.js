@@ -13,7 +13,7 @@ function Scheduler () {
         <button type="button">Add new</button>
       </header>
       <main>
-      <ul class="timeline">
+      <ul className="timeline">
         <li className="timeline-item">
           
         </li>
