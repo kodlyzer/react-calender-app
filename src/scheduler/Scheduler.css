@@ -1,13 +1,86 @@
 .scheduler-wrapper {
   color: #eee;
   width: 45rem;
-  height: 20rem;
+  height: 25rem;
   border-bottom-left-radius: 2rem;
   border-bottom-right-radius: 2rem;
   background-color: #098cf7;
-  color:white;
+  color: white;
 }
 
 .holiday-reminders {
-  background-color: rgba(0, 255, 106, 0.815);
+  background-color: #0dc63d;
+}
+
+header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+header>* {
+  padding: 1rem 2rem;
+}
+
+header h1 {
+  font-weight: 100;
+  font-size: x-large;
+  font-family: sans-serif;
+}
+
+header button {
+  border: none;
+  background: inherit;
+  color: white;
+  font-size: large;
+}
+
+header button:hover {
+  border: none;
+  background: inherit;
+  color: white;
+  font-size: large;
+  cursor: pointer;
+}
+
+header button:focus {
+  outline: none;
+  outline-offset: -4px;
+}
+
+header button:active {
+  transform: scale(0.99);
+}
+
+
+.timeline {
+  height: 20rem;
+  overflow: auto;
+}
+
+.timeline:before {
+  content: '';
+  position: absolute;
+  width: 1px;
+  height: 100%;
+  border-left: 1px dotted aliceblue;
+  margin: 0 2.4rem;
+}
+
+.timeline ul {
+  list-style: none;
+}
+
+.timeline li:before {
+  content: "\20DD";
+  background-color: inherit;
+}
+
+.timeline ul li {
+  padding: 0 0 1rem 2rem;
+}
+
+.timeline .timeline-item {
+  padding: 0 2rem;
+  top: -3rem;
 }

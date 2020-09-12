@@ -5,21 +5,11 @@ import Scheduler from './scheduler/Scheduler';
 
 function App() {
   const [selectedDate, setSelectedDate] = React.useState(new Date());
-  const [reminders, setReminders] = React.useState({
-    ['' + selectedDate.getFullYear() + selectedDate.getMonth() + selectedDate.getDate()]: {
-      heading: '',
-      date: selectedDate,
-      remindersForDay: [{
-        title: 'asdf',
-        place: 'asdf',
-        time: 'asdf'
-      }]
-    }
-  }); 
+  const [reminders, setReminders] = React.useState(); 
   const [selectedDateReminder, setSelectedDateReminder] = React.useState();
 
   React.useEffect(() => {
-    setSelectedDateReminder(selectedDate && reminders['' + selectedDate.getFullYear() + selectedDate.getMonth() + selectedDate.getDate()] || null);
+    setSelectedDateReminder(reminders && reminders['' + selectedDate?.getFullYear() + selectedDate?.getMonth() + selectedDate?.getDate()]);
   }, [selectedDate])
 
   const addReminder = (newReminder) => {

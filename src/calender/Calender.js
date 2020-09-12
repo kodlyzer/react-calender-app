@@ -1,6 +1,7 @@
 import React from 'react';
 import './Calender.css';
 import months from './months';
+import { Reminder, Reminders } from '../scheduler/Reminder';
 
 
 function Calender(props) {
@@ -8,18 +9,13 @@ function Calender(props) {
   const {selected, setSelectedDate, addReminder} = props;
 
   const handleDateSelect = (selectedDate) => {
-    const clickedDayReminders = {
-      ['' + selectedDate.getFullYear() + selectedDate.getMonth() + selectedDate.getDate()]: {
-        heading: '',
-        date: selectedDate,
-        remindersForDay: [{
-          title: 'asdf',
-          place: 'asdf',
-          time: 'asdf'
-        }]
-      }
-    };
-    addReminder(clickedDayReminders);
+    const reminders = new Reminders(selectedDate);
+    const reminder = new Reminder('test', 'place', 'time');
+    reminders.reminders.push(reminder);
+    reminders.reminders.push(reminder);
+    addReminder({
+      [reminders.id]: reminders,
+    });
     setSelectedDate(selectedDate);
   }
 

@@ -7,39 +7,46 @@ function Scheduler ({ reminders }) {
   console.log(reminders);
   const classes = ['scheduler-wrapper'];
   const day = reminders?.date?.getDay();
+  const year = reminders?.date?.getFullYear();
+  const month = reminders?.date?.getMonth();
+  const date = reminders?.date?.getDate();
+  const newDate = new Date();
+  let title;
   if (day === 0 || day === 6) {
     classes.push('holiday-reminders');
+  }
+  if (year === newDate.getFullYear() && month === newDate.getMonth() && date === newDate.getDate() ) {
+    title = 'Today';
+  } else {
+    title = weekdays[reminders?.date?.getDay()];
   }
   return (
     <section className={classes.join(' ')}>
       <header>
         <div>
-          <h2>{weekdays[reminders?.date?.getDay()]}</h2>
+          <h1>{title}</h1>
+          <h3>{reminders && reminders?.date?.getDate()+ '/' + reminders?.date?.getMonth()+ '/' +reminders?.date?.getFullYear()}</h3>
         </div>
-        <div>
-          {reminders?.date?.getDate()}/{reminders?.date?.getMonth()}/{reminders?.date?.getFullYear()}
+        <div> 
+          <button type="button">Add New</button>
         </div>
-        <button type="button">Add new</button>
+        
       </header>
-      <main>
-      <ul className="timeline">
-        <li className="timeline-item">
-          
-        </li>
-        <li className="timeline-item">
-          
-        </li>
-        <li className="timeline-item">
-          
-        </li>
-        <li className="timeline-item">
-          
-        </li>
-        <li className="timeline-item">
-          
-        </li>
-      </ul>
-      </main>
+      { reminders? 
+      <main className="timeline">
+        <ul>
+          { reminders?.reminders?.map(reminder => (
+            <li key={Math.random()}>
+              <div className="timeline-item">
+                <h2>{reminder.reminder}</h2>
+                <h4>{reminder.place}</h4>
+                <h4>{reminder.time}</h4>
+              </div>
+            </li>)
+          )}
+        </ul>
+      </main> : ''
+      }
     </section>
   );
 }

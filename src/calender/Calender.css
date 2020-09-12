@@ -99,6 +99,7 @@
 .today {
   border-radius: 60%;
   border: 1px solid gray;
+  cursor: pointer;
 }
 
 .days .selected {
