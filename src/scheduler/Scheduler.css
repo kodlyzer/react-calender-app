@@ -6,6 +6,7 @@
   border-bottom-right-radius: 2rem;
   background-color: #098cf7;
   color: white;
+  position: relative;
 }
 
 .holiday-reminders {
@@ -28,31 +29,6 @@ header h1 {
   font-family: sans-serif;
 }
 
-header button {
-  border: none;
-  background: inherit;
-  color: white;
-  font-size: large;
-}
-
-header button:hover {
-  border: none;
-  background: inherit;
-  color: white;
-  font-size: large;
-  cursor: pointer;
-}
-
-header button:focus {
-  outline: none;
-  outline-offset: -4px;
-}
-
-header button:active {
-  transform: scale(0.99);
-}
-
-
 .timeline {
   height: 20rem;
   overflow: auto;
@@ -62,8 +38,8 @@ header button:active {
   content: '';
   position: absolute;
   width: 1px;
-  height: 100%;
-  border-left: 1px dotted aliceblue;
+  height: 18rem;
+  border-left: 1px dashed aliceblue;
   margin: 0 2.4rem;
 }
 
@@ -77,10 +53,16 @@ header button:active {
 }
 
 .timeline ul li {
-  padding: 0 0 1rem 2rem;
+  margin: 0 0 0rem 2rem;
+  top: -3rem;
 }
 
 .timeline .timeline-item {
   padding: 0 2rem;
-  top: -3rem;
+}
+
+.empty-note {
+  position: absolute;
+  top: 10px;
+  margin-left: 10px;
 }

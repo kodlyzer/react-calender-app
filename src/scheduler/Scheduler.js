@@ -1,7 +1,8 @@
 
 import React from 'react';
 import './Scheduler.css';
-import weekdays from '../calender/weekdays'
+import weekdays from '../calender/weekdays';
+import Timeline from '../timeline/Timeline';
 
 function Scheduler ({ reminders }) {
   console.log(reminders);
@@ -30,22 +31,9 @@ function Scheduler ({ reminders }) {
         <div> 
           <button type="button">Add New</button>
         </div>
-        
       </header>
-      { reminders? 
-      <main className="timeline">
-        <ul>
-          { reminders?.reminders?.map(reminder => (
-            <li key={Math.random()}>
-              <div className="timeline-item">
-                <h2>{reminder.reminder}</h2>
-                <h4>{reminder.place}</h4>
-                <h4>{reminder.time}</h4>
-              </div>
-            </li>)
-          )}
-        </ul>
-      </main> : ''
+      { reminders? <Timeline reminders={reminders.reminders}/>
+       : <h1 className="empty-note">No Reminders Yet</h1>
       }
     </section>
   );

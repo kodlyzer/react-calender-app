@@ -1,0 +1,38 @@
+
+.timeline {
+  height: 20rem;
+  overflow: auto;
+}
+
+.timeline:before {
+  content: '';
+  position: absolute;
+  width: 1px;
+  height: 18rem;
+  border-left: 1px dashed aliceblue;
+  margin: 0 2.4rem;
+}
+
+.timeline ul {
+  list-style: none;
+  position: relative;
+}
+
+.timeline li:before {
+  content: "\20DD";
+  background-color: inherit;
+  top: 10px;
+}
+
+.timeline ul li {
+  margin: 0 0 0rem 2rem;
+  top: -5rem;
+}
+
+.timeline .timeline-item {
+  padding: 0 2rem;
+}
+
+.timeline-item > h4 > * {
+  padding: 0.5em;
+}
