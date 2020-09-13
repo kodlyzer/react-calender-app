@@ -3,13 +3,13 @@ import './App.css';
 import Calender from './calender/Calender';
 import Scheduler from './scheduler/Scheduler';
 import { Reminders, Reminder } from './scheduler/Reminder';
+import { save, retrieve, convertTopLevelDateStrToObj } from './utils/storage';
 
 function App() {
   const [selectedDate, setSelectedDate] = React.useState(new Date());
-  const [reminders, setReminders] = React.useState({}); 
+  const [reminders, setReminders] = React.useState(convertTopLevelDateStrToObj(retrieve('remindersCache')) || {}); 
   const [selectedDayReminders, setSelectedDayReminders] = React.useState();
   const addReminder = (newReminder) => {
-    console.log(newReminder);
     const reminderDayKey = '' + newReminder?.date?.getFullYear() + newReminder?.date?.getMonth() + newReminder?.date?.getDate();
     let xreminders;
     if (reminders && reminders[reminderDayKey]) {
@@ -30,6 +30,11 @@ function App() {
     }
     setSelectedDayReminders(reminders && reminders[selectedDayKey]);
   }, [selectedDate, reminders]);
+
+  React.useEffect(() => {
+    Object.keys(reminders).length > 0 && save('remindersCache', reminders);
+  }, [reminders]);
+  
 
   return (
     <div className="container">
