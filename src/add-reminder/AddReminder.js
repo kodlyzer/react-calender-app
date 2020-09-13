@@ -46,19 +46,13 @@ function AddReminder({ selectedDayReminders, addReminder }) {
 
   const handleChange = (e) => {
     const valueOf = e.target.name;
-    let formData;
+    let formData = {...form};
     if(valueOf === 'date') {
-      formData = {
-        date: e.target.value
-      }
+      formData.date = e.target.value
     } else {
-      formData = {
-        reminder: {
-          [valueOf]: e.target.value
-        }
-      }
+      formData.reminder[valueOf] = e.target.value;
     }
-    setForm({...form, ...formData});
+    setForm({...formData});
   }
 
   return (

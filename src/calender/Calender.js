@@ -9,13 +9,13 @@ function Calender(props) {
   const {selected, setSelectedDate, addReminder} = props;
 
   const handleDateSelect = (selectedDate) => {
-    const reminders = new Reminders(selectedDate);
-    const reminder = new Reminder('test', 'place', 'time');
-    reminders.reminders.push(reminder);
-    reminders.reminders.push(reminder);
-    addReminder({
-      [reminders.id]: reminders,
-    });
+    // const reminders = new Reminders(selectedDate);
+    // const reminder = new Reminder('test', 'place', 'time');
+    // reminders.reminders.push(reminder);
+    // reminders.reminders.push(reminder);
+    // addReminder({
+    //   [reminders.id]: reminders,
+    // });
     setSelectedDate(selectedDate);
   }
 
