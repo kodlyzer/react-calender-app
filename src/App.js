@@ -6,10 +6,10 @@ import Scheduler from './scheduler/Scheduler';
 function App() {
   const [selectedDate, setSelectedDate] = React.useState(new Date());
   const [reminders, setReminders] = React.useState(); 
-  const [selectedDateReminder, setSelectedDateReminder] = React.useState();
+  const [selectedDayReminders, setSelectedDayReminder] = React.useState();
 
   React.useEffect(() => {
-    setSelectedDateReminder(reminders && reminders['' + selectedDate?.getFullYear() + selectedDate?.getMonth() + selectedDate?.getDate()]);
+    setSelectedDayReminder(reminders && reminders['' + selectedDate?.getFullYear() + selectedDate?.getMonth() + selectedDate?.getDate()]);
   }, [selectedDate])
 
   const addReminder = (newReminder) => {
@@ -19,7 +19,7 @@ function App() {
   return (
     <div className="container">
       <Calender reminders={reminders} setSelectedDate={setSelectedDate} selected={selectedDate} addReminder={addReminder}/>
-      <Scheduler reminders={selectedDateReminder}/>
+      <Scheduler selectedDayReminders={selectedDayReminders} addReminder={addReminder}/>
     </div>
   );
 }

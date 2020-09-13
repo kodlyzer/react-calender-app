@@ -19,7 +19,7 @@ header {
   justify-content: space-between;
 }
 
-header>* {
+header > * {
   padding: 1rem 2rem;
 }
 
@@ -28,39 +28,6 @@ header h1 {
   font-size: x-large;
   font-family: sans-serif;
 }
-
-.timeline {
-  height: 20rem;
-  overflow: auto;
-}
-
-.timeline:before {
-  content: '';
-  position: absolute;
-  width: 1px;
-  height: 18rem;
-  border-left: 1px dashed aliceblue;
-  margin: 0 2.4rem;
-}
-
-.timeline ul {
-  list-style: none;
-}
-
-.timeline li:before {
-  content: "\20DD";
-  background-color: inherit;
-}
-
-.timeline ul li {
-  margin: 0 0 0rem 2rem;
-  top: -3rem;
-}
-
-.timeline .timeline-item {
-  padding: 0 2rem;
-}
-
 .empty-note {
   position: absolute;
   top: 10px;

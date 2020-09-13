@@ -1,0 +1,12 @@
+.add-new-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-items {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 2rem;
+}
+
