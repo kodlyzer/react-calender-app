@@ -13,6 +13,7 @@ function App() {
   }, [selectedDate])
 
   const addReminder = (newReminder) => {
+    console.log(newReminder);
     setReminders({...reminders, ...newReminder});
   }
 

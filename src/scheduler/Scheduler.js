@@ -4,9 +4,9 @@ import './Scheduler.css';
 import weekdays from '../calender/weekdays';
 import Timeline from '../timeline/Timeline';
 import AddNewReminder from '../add-reminder/AddReminder';
+import { getFormattedDate } from '../utils/date-helper';
 
-function Scheduler ({ selectedDayReminders,  addReminders}) {
-  console.log(selectedDayReminders);
+function Scheduler ({ selectedDayReminders,  addReminder}) {
   const classes = ['scheduler-wrapper'];
   const day = selectedDayReminders?.date?.getDay();
   const year = selectedDayReminders?.date?.getFullYear();
@@ -27,10 +27,10 @@ function Scheduler ({ selectedDayReminders,  addReminders}) {
       <header>
         <div>
           <h1>{title}</h1>
-          <h3>{selectedDayReminders && selectedDayReminders?.date?.getDate()+ '/' + selectedDayReminders?.date?.getMonth()+ '/' +selectedDayReminders?.date?.getFullYear()}</h3>
+          <h3>{getFormattedDate(selectedDayReminders?.date, "ddmmyyyy")}</h3>
         </div>
         <div> 
-          <AddNewReminder />
+          <AddNewReminder selectedDayReminders={selectedDayReminders} addReminder={addReminder}/>
         </div>
       </header>
       { selectedDayReminders? <Timeline selectedDayReminders={selectedDayReminders.reminders}/>

@@ -5,15 +5,26 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Slide from '@material-ui/core/Slide';
+import { Reminder, Reminders } from '../scheduler/Reminder';
+import { getFormattedDate } from '../utils/date-helper';
 import './AddReminder.css'
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-function AddReminder() {
+function AddReminder({ selectedDayReminders, addReminder }) {
   const [open, setOpen] = React.useState(false);
-  const [form, setForm] = React.useState()
+  const [form, setForm] = React.useState();
+
+  React.useEffect(() => {
+    setForm(getDefaults);
+  }, [selectedDayReminders])
+
+  const getDefaults = () => ({
+    date: getFormattedDate(selectedDayReminders?.date),
+    reminder: new Reminder('', '', '')
+  });
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -24,8 +35,31 @@ function AddReminder() {
   };
 
   const handleSubmit = () => {
+    const reminderToAdd = {...form};
+    if(reminderToAdd?.date) {
+      reminderToAdd.date = new Date(reminderToAdd.date);
+    }
+    addReminder(reminderToAdd);
+    setForm(getDefaults);
     setOpen(false);
   };
+
+  const handleChange = (e) => {
+    const valueOf = e.target.name;
+    let formData;
+    if(valueOf === 'date') {
+      formData = {
+        date: e.target.value
+      }
+    } else {
+      formData = {
+        reminder: {
+          [valueOf]: e.target.value
+        }
+      }
+    }
+    setForm({...form, ...formData});
+  }
 
   return (
     <div>
@@ -45,22 +79,22 @@ function AddReminder() {
           <form className="add-new-form">
             <label className="form-items">
               Date:
-            <input type="text" name="name" type="date"/>
+              <input type="date" name="date" value={form?.date} onChange={handleChange}/>
             </label>
 
             <label className="form-items">
-              Remind About?
-            <input type="text" name="name" />
+              Remind About? &nbsp;&nbsp;
+            <input required type="text" name="reminder" value={form?.reminder?.reminder} onChange={handleChange}/>
             </label>
 
             <label className="form-items">
               Where?
-            <input type="text" name="name" />
+            <input type="text" name="place" value={form?.reminder?.place} onChange={handleChange}/>
             </label>
 
             <label className="form-items">
               At what time?
-            <input type="text" name="name" type="time"/>
+            <input type="text" name="time" type="time" value={form?.reminder?.time} onChange={handleChange}/>
             </label>
           </form>
         </DialogContent>

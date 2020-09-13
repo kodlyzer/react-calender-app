@@ -2,7 +2,6 @@ import React from 'react';
 import './Timeline.css';
 
 function Timeline({ selectedDayReminders }) {
-  console.log(selectedDayReminders);
   return (
     <main className="timeline">
       <ul>
